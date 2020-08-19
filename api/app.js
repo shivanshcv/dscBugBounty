@@ -3,7 +3,7 @@ var app=express();
 var mongoose=require('mongoose');
 var bodyParser=require('body-parser');
 var cors=require('cors');
-var nodemailer=require('nodemailer');
+
 var Schema=mongoose.Schema;
 require('dotenv').config()  
  
@@ -54,7 +54,10 @@ var teamSchema=Schema({
 var Teams=mongoose.model("Teams",teamSchema);
 var Questions=mongoose.model("Questions",questionSchema);
  
- 
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+
 app.get("/getTeams",(req,res)=>{
     Teams.find({},function(err,foundTeams){
         if(err)
@@ -213,9 +216,15 @@ app.post("/teams/register",(req,res)=>{
                     }
                         else
                     {
-                        sendMail(createdTeam,info=>{
-                            
-                        })
+                        const msg = {
+                            to: createdTeam.email,
+                            from: 'shivansh.cv12@gmail.com',
+                            subject: 'Team ID For DSC-BUG Bounty 2020',
+                            text: 'Hello Team '+createdTeam.teamName+"\nYour Team Id is "+createdTeam.teamNo,
+                           
+                          };
+                          sgMail.send(msg);
+                        
                         res.json({error:false,message:"the team is successfully registered",teamName:createdTeam.teamName});
                     }
                         
@@ -264,30 +273,7 @@ app.post("/admin_login",(req,res)=>{
     }
  
 });
- 
-async function sendMail(user,callback){
-    var transporter = nodemailer.createTransport({
-        host: "smtp.mailtrap.io",
-        port: 2525,
-        auth: {
-          user: process.env.EMAIL,
-          pass: process.env.PASS
-        }
-      });
- 
-        
-    
-    let mailOptions={
-        from:'"DSC-RIT" <shivansh.cv12@gmail.com>',
-        to:user.email,
-        subject:"Team id For DSC Bug Bounty 2020",
-        text:"Hello Team "+user.teamName+"\n Your Team ID For DSC Bug Bounty 2020 is "+user.teamNo
-      
-        
-    };
-    let info=await transporter.sendMail(mailOptions);
-    callback(info);
-}
+
 app.listen(2000,function(){
     console.log("SERVER RUNNING ON PORT 2000");
   

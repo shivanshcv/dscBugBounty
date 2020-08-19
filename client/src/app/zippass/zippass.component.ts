@@ -44,12 +44,11 @@ export class ZippassComponent implements OnInit {
   this.logged=true;
     
 
+
   
   if(this.logged==true){
-    this.bs.getQues().subscribe(ques => {
-      this.questions = ques['arr'];
-      this.ref.detectChanges();
-    })
+
+   this.login();
   }
 }
 login() {
