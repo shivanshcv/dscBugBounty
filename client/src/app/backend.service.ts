@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
  
 @Injectable({
   providedIn: 'root'
 })
 export class BackendService {
-  public url:string="http://localhost:2000/";
+  public url:string=environment.url;
  
   constructor(private http:HttpClient,private router:Router) { }
  
