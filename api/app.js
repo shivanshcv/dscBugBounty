@@ -274,8 +274,8 @@ app.post("/admin_login",(req,res)=>{
  
 });
 
-app.listen(2000,function(){
-    console.log("SERVER RUNNING ON PORT 2000");
+app.listen(process.env.PORT,function(){
+    console.log("SERVER RUNNING ON PORT "+process.env.PORT);
   
     
 })
