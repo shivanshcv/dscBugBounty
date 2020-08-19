@@ -1,0 +1,24 @@
+<h2 style="text-align: center;">Team List</h2>
+
+<table class="table table-hover table-dark" style="margin-top: 50px;">
+    <thead>
+      <tr>
+        <th scope="col">Team No</th>
+        <th scope="col">Team Name</th>
+        <th scope="col">C-Score</th>
+        <th scope="col">Web-Score</th>
+        <th scope="col">Total Score</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let team of teams">
+      <tr>
+        <th scope="row">{{team['teamNo']}}</th>
+        <td>{{team['teamName']}}</td>
+        <td>{{team['cScore']}}</td>
+        <td>{{team['webScore']}}</td>
+        <td>{{team['totalScore']}}</td>
+        <td><button type="button" class="btn btn-success" (click)="edit(team['_id'],team['teamName'])">Edit</button></td>
+      </tr>
+      
+    </tbody>
+  </table>

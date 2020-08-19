@@ -1,0 +1,76 @@
+<div class="container">
+    <div class="jumbotron mt-5" *ngIf="!logged">
+        <h2 class="mb-2">Login</h2>
+        <form>
+            <div class="form-group">
+                <label for="teamNo">Team ID</label>
+                <input type="text" class="form-control" id="teamNo" placeholder="Enter Team ID"[(ngModel)]="team.teamNo" name="teamNo">
+            </div>
+            <div class="form-group">
+                <label for="teamName">Team Name</label>
+                <input type="text" class="form-control" id="teamName" [(ngModel)]="team.teamName" placeholder="Enter Team Name" name="teamName" required>
+            </div>
+            <button (click)="login()" class="btn btn-primary" [disabled]="questions && questions.length > 1">Submit</button>
+          </form>
+    </div>
+
+    
+    <div class="jumbotron mt-5" *ngIf="error">
+        <h2>The Team Name and Number doesn't match anywhere in the database. Verify your input or contact the test administators</h2>
+    </div>
+ 
+    <div *ngIf="questions">
+    
+        <div class="jumbotron mt-5" *ngIf="questions.length > 1">
+            <h2>Questions</h2> 
+            <hr>
+            <div class="row">
+                <div class="col-2">Question No.</div>
+                <div class="col">Question</div>
+                <div class="col-md-4">Solved</div>
+            </div>
+            <hr>
+            <div class="row py-2" *ngFor="let q of questions; let i = index">
+                <div class="col-2">{{i+1}}</div>
+                <div class="col">{{q.question}}</div>
+                <div class="col-md-4">
+                    <button type="button" [class]="(team.solved[i] == 0) ? 'btn btn-primary' : 'btn btn-success'" [disabled]="team.solved[i] != 0" (click)="solve(i)">{{(team.solved[i] == 0) ? 'Enter Solution' : 'Solved'}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    <div class="row">
+        <div class="col-md">
+            <div class="jumbotron" *ngIf="prompt">
+                <div class="modal-dialog">
+                  <div class="modal-content" style="background: black !important; border: 10px double yellow !important">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Enter Solution</h5>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" class="form-control" id="solution" [(ngModel)]="toSolve.solution" name="solution">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" (click)="submit()" class="btn btn-primary">Submit</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="jumbotron" *ngIf="answer">
+                <div class="modal-dialog">
+                  <div class="modal-content" style="background: black !important; border: 10px double yellow !important">
+                    <div class="modal-body">
+                        {{password}}
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+ 
+ 
+</div>
