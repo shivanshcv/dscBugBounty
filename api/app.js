@@ -24,7 +24,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-mongoose.connect("mongodb://localhost:27017/dscBugBounty", {
+mongoose.connect(process.env.ATLAS, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -58,6 +58,7 @@ var teamSchema = Schema({
 
 var Teams = mongoose.model("Teams", teamSchema);
 var Questions = mongoose.model("Questions", questionSchema);
+Questions.create({questionNo:1,question:"Hello hello",score:45,answer:"Hello",password:"Hello"});
 
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -225,7 +226,7 @@ router.post("/team/login", (req, res) => {
 });
 
 router.post("/admin_login", (req, res) => {
-  if (req.body.username == "hello" && req.body.password == "hello") {
+  if (req.body.username == "helloDSC" && req.body.password == "helloAdmin") {
     res.json({ error: "false" });
   } else {
     res.json({ error: "true" });
