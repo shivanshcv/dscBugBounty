@@ -4,6 +4,8 @@ var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
 var cors = require("cors");
 const path = require("path");
+const sgMail = require("@sendgrid/mail");
+
 var Schema = mongoose.Schema;
 require("dotenv").config();
 
@@ -60,7 +62,6 @@ var Teams = mongoose.model("Teams", teamSchema);
 var Questions = mongoose.model("Questions", questionSchema);
 // Questions.create({questionNo:1,question:"Hello",score:45,answer:"Hello",password:"Hello"});
 
-const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const router = express.Router();
