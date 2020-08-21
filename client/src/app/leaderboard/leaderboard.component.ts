@@ -27,7 +27,7 @@ export class LeaderboardComponent implements OnInit {
         this.teamArr = arr.sort((a,b) => b['totalScore'] - a['totalScore']);
         this.ref.detectChanges();
       })
-    },15000);
+    },7500);
   }
 
 }

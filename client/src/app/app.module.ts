@@ -14,6 +14,7 @@ import { QuestionRegisterComponent } from './question-register/question-register
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +24,7 @@ import { QuestionRegisterComponent } from './question-register/question-register
     ZippassComponent,
     RegisterComponent,
     QuestionRegisterComponent,
+   
    
   ],
   imports: [

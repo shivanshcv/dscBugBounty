@@ -60,7 +60,7 @@ var teamSchema = Schema({
 
 var Teams = mongoose.model("Teams", teamSchema);
 var Questions = mongoose.model("Questions", questionSchema);
-// Questions.create({questionNo:1,question:"Hello",score:45,answer:"Hello",password:"Hello"});
+
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 

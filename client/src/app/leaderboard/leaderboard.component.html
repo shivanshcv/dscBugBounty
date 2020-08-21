@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
     <div class="jumbotron mt-5">
         <h2>Leaderboard</h2> 
         <hr>
@@ -16,4 +16,32 @@
             <div class="col-md-4">{{team['totalScore']}}</div>
         </div>
     </div>
-</div>
+</div> -->
+<div class="jumbotron">
+    <h2 style="text-align: center;">Leaderboard</h2>
+    
+    
+    <table class="table table-borderless table-responsive-sm" style="margin-top: 50px;">
+        <thead>
+          <tr>
+            <th scope="col">Rank</th>
+            <th scope="col">Team ID</th>
+            <th scope="col">Team Name</th>
+            <th scope="col">Total Score</th>
+            
+          </tr>
+        </thead>
+        <tbody  *ngFor="let team of teamArr; let i = index">
+          <tr>
+            <th scope="row">{{i+1}}</th>
+            <td>{{team['teamNo']}}</td>
+            <td>{{team['teamName']}}</td>
+            
+         
+            <td>{{team['totalScore']}}</td>
+           
+          </tr>
+          
+        </tbody>
+      </table>
+      </div> 

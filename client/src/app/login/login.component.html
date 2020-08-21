@@ -1,15 +1,17 @@
 
 
 
-<div id="container">
+<div class="container">
+  <div class="jumbotron mt-5">
     <h2>DSC Admin</h2>
-    <p>Please fill in this form to Log In.</p>
+    <p>Please fill in this form to Continue</p>
     <hr>
   <form [formGroup]="loginForm" >
   
       <div class="form-group">
         
         
+
   
         <label for="username">Username</label>
         <input type="text" placeholder="Enter Username" required class="form-control" name ="username" formControlName="username">
@@ -22,8 +24,10 @@
       </div>
         <div class="button">
           
-          <button type="submit"class="btn btn-success" (click)="submit()">Log In</button>
+          <button type="submit"class="btn btn-primary" (click)="submit()">Log In</button>
           
         </div>
       
     </form>
+  </div>
+    </div>

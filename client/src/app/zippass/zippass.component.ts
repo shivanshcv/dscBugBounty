@@ -87,11 +87,16 @@ login() {
 }
  
   solve(i : number) {
+    
     this.toSolve.questionNo = i;
     this.prompt = true;
     this.answer = false;
     this.toSolve.solution = "";
     this.password = "";
+    
+  }
+  goDown(){
+    window.scrollTo(0,document.body.scrollHeight);
   }
  
 

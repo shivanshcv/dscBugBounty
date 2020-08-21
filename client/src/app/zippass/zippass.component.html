@@ -1,6 +1,7 @@
 <div class="container">
     <div class="jumbotron mt-5" *ngIf="!logged">
-        <h2 class="mb-2">Login</h2>
+        <h2 class="mb-2">Team Login</h2>
+        <p>Please fill in this form to Continue</p>
         <form>
             <div class="form-group">
                 <label for="teamNo">Team ID</label>
@@ -22,11 +23,12 @@
     <div *ngIf="questions">
     
         <div class="jumbotron mt-5" *ngIf="questions.length > 1">
-            <h2>Questions</h2> 
-            <hr>
+            <h2 style="text-align: center;">Questions</h2> 
+<!--             
             <div class="row">
                 <div class="col-2">Question No.</div>
                 <div class="col">Question</div>
+ 
                 <div class="col-md-4">Solved</div>
             </div>
             <hr>
@@ -36,7 +38,30 @@
                 <div class="col-md-4">
                     <button type="button" [class]="(team.solved[i] == 0) ? 'btn btn-primary' : 'btn btn-success'" [disabled]="team.solved[i] != 0" (click)="solve(i)">{{(team.solved[i] == 0) ? 'Enter Solution' : 'Solved'}}</button>
                 </div>
-            </div>
+            </div> -->
+            <table class="table table-borderless table-responsive-sm" style="margin-top: 50px;">
+                <thead>
+                  <tr>
+                    <th scope="col">Question No.</th>
+                    <th scope="col">Question</th>
+                    <th scope="col">Status</th>
+                    
+                    
+                  </tr>
+                </thead>
+                <tbody  *ngFor="let q of questions; let i = index">
+                  <tr>
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{q.question}}</td>
+                    <td><button type="button" [class]="(team.solved[i] == 0) ? 'btn btn-primary' : 'btn btn-success'" [disabled]="team.solved[i] != 0" (click)="solve(i);goDown()">{{(team.solved[i] == 0) ? 'Enter Solution' : 'Solved'}}</button></td>
+                    
+                 
+                    <td>{{team['totalScore']}}</td>
+                   
+                  </tr>
+                  
+                </tbody>
+              </table>
         </div>
     </div>
  
@@ -44,6 +69,7 @@
         <div class="col-md">
             <div class="jumbotron" *ngIf="prompt">
                 <div class="modal-dialog">
+                    <form>
                   <div class="modal-content" style="background: black !important; border: 10px double yellow !important">
                     <div class="modal-header">
                       <h5 class="modal-title">Enter Solution</h5>
@@ -55,6 +81,7 @@
                       <button type="submit" (click)="submit()" class="btn btn-primary">Submit</button>
                     </div>
                   </div>
+                  </form>
                 </div>
             </div>
         </div>
