@@ -17,6 +17,7 @@ export class LeaderboardComponent implements OnInit {
     private ref: ChangeDetectorRef
   ) { }
 
+  
   ngOnInit(): void {
     this.backend.getTeams().subscribe(arr => {
       this.teamArr = arr.sort((a,b) => b['totalScore'] - a['totalScore']);
