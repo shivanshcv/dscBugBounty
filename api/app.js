@@ -55,7 +55,10 @@ var teamSchema = Schema({
     type: Number,
     default: 0,
   },
-  solved: [],
+  solved: {
+    arr : [],
+    dateTime : []
+  },
 });
 
 var Teams = mongoose.model("Teams", teamSchema);
@@ -93,7 +96,8 @@ router.post("/changeScore", (req, res) => {
         { question: req.body.question.question },
         async function (err, foundQues) {
           if (foundQues) {
-            foundTeam.solved[foundQues.questionNo - 1] = 1;
+            foundTeam.solved['arr'][foundQues.questionNo - 1] = 1;
+            foundTeam.solved['dateTime'][foundQues.questionNo - 1] = new Date();
             foundTeam.cScore += foundQues.score;
             foundTeam.totalScore += foundQues.score;
             foundTeam.markModified("solved");
@@ -169,8 +173,10 @@ router.post("/teams/register", (req, res) => {
     } else {
       Questions.find({}, function (err, arr) {
         solvedArr = [];
+        dateTimeArr = [];
         arr.forEach((ques) => {
           solvedArr.push(0);
+          dateTimeArr.push(new Date());
         });
         let m = {
           teamNo: req.body.teamNo,
@@ -178,7 +184,10 @@ router.post("/teams/register", (req, res) => {
           teamName: req.body.teamName,
           email: req.body.email,
 
-          solved: solvedArr,
+          solved: {
+            arr : solvedArr,
+            dateTime : dateTimeArr
+          },
         };
         Teams.create(m, function (err, createdTeam) {
           if (err) {
