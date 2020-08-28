@@ -51,13 +51,15 @@ var teamSchema = Schema({
     type: Number,
     default: 0,
   },
+
   totalScore: {
     type: Number,
     default: 0,
   },
   solved: {
     arr : [],
-    dateTime : []
+    dateTime : [],
+    webdatetime:Date
   },
 });
 
@@ -140,6 +142,7 @@ router.put("/teams/editScore", (req, res) => {
   Teams.findOne({ _id: req.body.id }, async function (err, foundTeam) {
     if (foundTeam) {
       foundTeam.webScore += req.body.webScore;
+      foundTeam.solved['webdatetime']=req.body.date;
       foundTeam.totalScore += req.body.webScore;
       await foundTeam.save(function (err, savedTeam) {
         if (err) {
@@ -178,6 +181,7 @@ router.post("/teams/register", (req, res) => {
           solvedArr.push(0);
           dateTimeArr.push(new Date());
         });
+
         let m = {
           teamNo: req.body.teamNo,
 
@@ -186,7 +190,8 @@ router.post("/teams/register", (req, res) => {
 
           solved: {
             arr : solvedArr,
-            dateTime : dateTimeArr
+            dateTime : dateTimeArr,
+            webdatetime:dateTimeArr[0]
           },
         };
         Teams.create(m, function (err, createdTeam) {

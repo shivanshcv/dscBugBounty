@@ -25,7 +25,7 @@ export class BackendService {
     let m=this.http.post(this.url+"teams/register",obj);
     return m;
   }
-  editScore(webScore:Number,id:string,teamName:string):Observable<any>{
+  editScore(webScore:Number,id:string,teamName:string,date:string):Observable<any>{
     let m={webScore:webScore,id:id,teamName:teamName}
     return this.http.put(this.url+"teams/editScore",m);
   }

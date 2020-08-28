@@ -20,6 +20,7 @@ export class ZippassComponent implements OnInit {
   error=false;
  
   prompt = false;
+  
   answer = false;
   password = "";
   questions : String[] = [];

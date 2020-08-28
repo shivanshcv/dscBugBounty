@@ -28,7 +28,7 @@ export class LeaderboardComponent implements OnInit {
         this.teamArr = arr.sort(this.sortRank);
         this.ref.detectChanges();
       })
-    },7500);
+    },75500);
   }
 
   sortRank(a, b) {
@@ -39,8 +39,51 @@ export class LeaderboardComponent implements OnInit {
       return -1;
     }
     else {
-      let aLatestTime = a['solved']['dateTime'].sort().slice(-1).pop();
-      let bLatestTime = b['solved']['dateTime'].sort().slice(-1).pop();
+      
+      let aLatestTimeC = a['solved']['dateTime'].sort().slice(-1).pop();
+
+      let bLatestTimeC= b['solved']['dateTime'].sort().slice(-1).pop();
+      let aLatestTimeWeb=a['solved']['webdatetime'];
+      let bLatestTimeWeb=b['solved']['webdatetime'];
+      let aLatestTime;
+      let bLatestTime;
+      console.log(aLatestTimeC);
+      console.log(aLatestTimeWeb);
+      console.log(bLatestTimeC);
+      console.log(bLatestTimeWeb);
+      
+      
+      
+      
+      
+      
+      if(aLatestTimeC>aLatestTimeWeb)
+      {
+        aLatestTime=aLatestTimeC;
+        console.log("a-c"+aLatestTime);
+        
+      }
+      else
+      {
+        aLatestTime=aLatestTimeWeb
+        console.log("a-w"+aLatestTime);
+      }
+      if(bLatestTimeC>bLatestTimeWeb)
+      {
+        bLatestTime=bLatestTimeC
+        console.log("b-c"+bLatestTime);
+      }
+      else
+      {
+        bLatestTime=bLatestTimeWeb;
+        console.log("b-w"+bLatestTime);
+      }
+      if(aLatestTime>bLatestTime)
+        console.log("a bada");
+      else
+        console.log("b bada");
+        
+        
       return (aLatestTime - bLatestTime);
     }
   }
