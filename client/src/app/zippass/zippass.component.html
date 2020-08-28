@@ -53,7 +53,7 @@
                   <tr>
                     <th scope="row">{{i+1}}</th>
                     <td>{{q.question}}</td>
-                    <td><button type="button" [class]="(team.solved[i] == 0) ? 'btn btn-primary' : 'btn btn-success'" [disabled]="team.solved[i] != 0" (click)="solve(i);goDown()">{{(team.solved[i] == 0) ? 'Enter Solution' : 'Solved'}}</button></td>
+                    <td><button type="button" [class]="(team.solved['arr'][i] == 0) ? 'btn btn-primary' : 'btn btn-success'" [disabled]="team.solved['arr'][i] != 0" (click)="solve(i);goDown()">{{(team.solved['arr'][i] == 0) ? 'Enter Solution' : 'Solved'}}</button></td>
                     
                  
                     <td>{{team['totalScore']}}</td>

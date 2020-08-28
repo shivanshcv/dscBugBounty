@@ -62,8 +62,6 @@ login() {
   }
   
   this.bs.teamLogin(this.team).subscribe(obj => {
-    console.log(obj);
-    
     if (obj['team'] == null)
     {
       this.error=true;
@@ -116,9 +114,10 @@ login() {
             solved:data.solved
           }
           this.team=m;
+          
         })
         this.password = "Password is : " + this.questions[this.toSolve.questionNo]['password'] ;
-          this.team.solved[this.toSolve.questionNo] = 1;
+          // this.team.solved['arr'][this.toSolve.questionNo] = 1;
           this.prompt = false;
         
         

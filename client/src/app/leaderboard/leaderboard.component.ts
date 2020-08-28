@@ -20,15 +20,29 @@ export class LeaderboardComponent implements OnInit {
   
   ngOnInit(): void {
     this.backend.getTeams().subscribe(arr => {
-      this.teamArr = arr.sort((a,b) => b['totalScore'] - a['totalScore']);
+      this.teamArr = arr.sort(this.sortRank);
     })
     
     setInterval(()=>{
       this.backend.getTeams().subscribe(arr => {
-        this.teamArr = arr.sort((a,b) => b['totalScore'] - a['totalScore']);
+        this.teamArr = arr.sort(this.sortRank);
         this.ref.detectChanges();
       })
     },7500);
+  }
+
+  sortRank(a, b) {
+    if (a['totalScore'] < b['totalScore']) {
+      return 1;
+    }
+    else if (a['totalScore'] > b['totalScore']) {
+      return -1;
+    }
+    else {
+      let aLatestTime = a['solved']['dateTime'].sort().slice(-1).pop();
+      let bLatestTime = b['solved']['dateTime'].sort().slice(-1).pop();
+      return (aLatestTime - bLatestTime);
+    }
   }
 
 }
