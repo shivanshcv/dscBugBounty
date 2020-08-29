@@ -5,6 +5,8 @@ var bodyParser = require("body-parser");
 var cors = require("cors");
 const path = require("path");
 const sgMail = require("@sendgrid/mail");
+var moment = require('moment');
+moment().format();
 
 var Schema = mongoose.Schema;
 require("dotenv").config();
@@ -70,7 +72,7 @@ var Questions = mongoose.model("Questions", questionSchema);
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const router = express.Router();
-
+//get all teams details
 router.get("/getTeams", (req, res) => {
   Teams.find({}, function (err, foundTeams) {
     if (err) console.log(err);
@@ -90,7 +92,7 @@ router.get("/questions", (req, res) => {
     }
   });
 });
-
+// c score change 
 router.post("/changeScore", (req, res) => {
   Teams.findOne({ teamNo: req.body.teamNo }, function (err, foundTeam) {
     if (foundTeam) {
@@ -118,6 +120,7 @@ router.post("/changeScore", (req, res) => {
     }
   });
 });
+//add questions
 router.post("/addQuestion", (req, res) => {
   Questions.findOne({ questionNo: req.body.questionNo }, function (
     err,
@@ -138,11 +141,15 @@ router.post("/addQuestion", (req, res) => {
     }
   });
 });
+//web score edit
 router.put("/teams/editScore", (req, res) => {
   Teams.findOne({ _id: req.body.id }, async function (err, foundTeam) {
     if (foundTeam) {
       foundTeam.webScore += req.body.webScore;
-      foundTeam.solved['webdatetime']=req.body.date;
+     
+      var date=moment(req.body.date);
+      foundTeam.solved['webdatetime']=date; 
+     
       foundTeam.totalScore += req.body.webScore;
       await foundTeam.save(function (err, savedTeam) {
         if (err) {
@@ -169,6 +176,7 @@ router.put("/teams/editScore", (req, res) => {
     }
   });
 });
+//register teams
 router.post("/teams/register", (req, res) => {
   Teams.findOne({ teamNo: req.body.teamNo }, function (err, foundTeam) {
     if (foundTeam) {
@@ -221,7 +229,7 @@ router.post("/teams/register", (req, res) => {
     }
   });
 });
-
+//team login
 router.post("/team/login", (req, res) => {
   Teams.findOne({ teamNo: req.body.teamNo }, function (err, foundTeam) {
     if (foundTeam) {
@@ -239,7 +247,7 @@ router.post("/team/login", (req, res) => {
     }
   });
 });
-
+//admin login
 router.post("/admin_login", (req, res) => {
   if (req.body.username == "helloDSC" && req.body.password == "helloAdmin") {
     res.json({ error: "false" });

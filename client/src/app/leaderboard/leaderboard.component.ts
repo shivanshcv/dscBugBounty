@@ -28,7 +28,7 @@ export class LeaderboardComponent implements OnInit {
         this.teamArr = arr.sort(this.sortRank);
         this.ref.detectChanges();
       })
-    },75500);
+    },7500);
   }
 
   sortRank(a, b) {
@@ -47,44 +47,26 @@ export class LeaderboardComponent implements OnInit {
       let bLatestTimeWeb=b['solved']['webdatetime'];
       let aLatestTime;
       let bLatestTime;
-      console.log(aLatestTimeC);
-      console.log(aLatestTimeWeb);
-      console.log(bLatestTimeC);
-      console.log(bLatestTimeWeb);
-      
-      
-      
-      
-      
-      
       if(aLatestTimeC>aLatestTimeWeb)
       {
         aLatestTime=aLatestTimeC;
-        console.log("a-c"+aLatestTime);
-        
       }
       else
-      {
-        aLatestTime=aLatestTimeWeb
-        console.log("a-w"+aLatestTime);
-      }
+        aLatestTime=aLatestTimeWeb;
+
       if(bLatestTimeC>bLatestTimeWeb)
-      {
-        bLatestTime=bLatestTimeC
-        console.log("b-c"+bLatestTime);
-      }
+        bLatestTime=bLatestTimeC;
       else
-      {
         bLatestTime=bLatestTimeWeb;
-        console.log("b-w"+bLatestTime);
-      }
+
+      console.log(aLatestTime);
+      console.log(bLatestTime);
+      
+      
       if(aLatestTime>bLatestTime)
-        console.log("a bada");
+          return -1;
       else
-        console.log("b bada");
-        
-        
-      return (aLatestTime - bLatestTime);
+        return 1;    
     }
   }
 
