@@ -64,9 +64,9 @@ export class LeaderboardComponent implements OnInit {
       
       
       if(aLatestTime>bLatestTime)
-          return -1;
+          return 1;
       else
-        return 1;    
+        return -1;    
     }
   }
 
