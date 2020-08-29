@@ -36,7 +36,7 @@ export class AdminComponent implements OnInit {
     
     var webScore=parseInt(prompt("Enter the web Score to be added for the team "+teamName));
     var date=(prompt("Enter the last git commit dateTime"))
-    console.log(date);
+    
     
     this.bs.editScore(webScore,id,teamName,date).subscribe((data)=>{
       if(data['error'])

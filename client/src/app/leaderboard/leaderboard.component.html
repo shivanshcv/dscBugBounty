@@ -20,13 +20,15 @@
 <div class="jumbotron">
     <h2 style="text-align: center;">Leaderboard</h2>
     
-    
+    {{ time | date: 'hh:mm:ss a' }}
     <table class="table table-borderless table-responsive-sm" style="margin-top: 50px;">
         <thead>
           <tr>
             <th scope="col">Rank</th>
-            <th scope="col">Team ID</th>
+            
             <th scope="col">Team Name</th>
+            <th scope="col">C-Score</th>
+            <th scope="col">Web-Score</th>
             <th scope="col">Total Score</th>
             
           </tr>
@@ -34,11 +36,12 @@
         <tbody  *ngFor="let team of teamArr; let i = index">
           <tr>
             <th scope="row">{{i+1}}</th>
-            <td>{{team['teamNo']}}</td>
-            <td>{{team['teamName']}}</td>
             
+            <td>{{team['teamName']}}</td>
+            <td>{{team['cScore']}}</td>
+            <td>{{(team['webScore']==0) ? 'To be Decided' : team['webScore']}}</td>
          
-            <td>{{team['totalScore']}}</td>
+            <td>{{(team['webScore']==0) ? 'To be Decided' : team['totalScore']}}</td>
            
           </tr>
           

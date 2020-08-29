@@ -11,6 +11,7 @@ import {ChangeDetectorRef} from '@angular/core'
 export class LeaderboardComponent implements OnInit {
 
   teamArr : any[];
+  time = new Date();
 
   constructor(
     private backend : BackendService,
@@ -22,7 +23,9 @@ export class LeaderboardComponent implements OnInit {
     this.backend.getTeams().subscribe(arr => {
       this.teamArr = arr.sort(this.sortRank);
     })
-    
+    setInterval(() => {
+      this.time = new Date();
+   }, 1000);
     setInterval(()=>{
       this.backend.getTeams().subscribe(arr => {
         this.teamArr = arr.sort(this.sortRank);
@@ -59,9 +62,6 @@ export class LeaderboardComponent implements OnInit {
       else
         bLatestTime=bLatestTimeWeb;
 
-      console.log(aLatestTime);
-      console.log(bLatestTime);
-      
       
       if(aLatestTime>bLatestTime)
           return 1;

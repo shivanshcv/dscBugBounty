@@ -54,12 +54,12 @@ export class ZippassComponent implements OnInit {
 }
 login() {
   if (this.team.teamNo == "") {
-    console.log(localStorage.getItem('no'));
+    
     this.team.teamNo = localStorage.getItem('no');
   }
   else {
     localStorage.setItem('no',this.team.teamNo);
-    console.log(localStorage.getItem('no'));
+    
   }
   
   this.bs.teamLogin(this.team).subscribe(obj => {
