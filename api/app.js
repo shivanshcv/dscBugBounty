@@ -60,8 +60,7 @@ var teamSchema = Schema({
   },
   solved: {
     arr : [],
-    dateTime : [],
-    webdatetime:Date
+    dateTime : []
   },
 });
 
@@ -81,7 +80,23 @@ router.get("/getTeams", (req, res) => {
     }
   });
 });
-
+router.get("/changepls",(req,res)=>{
+  Teams.find({},function(err,team){
+    team.forEach((t)=>{
+    for(i=0;i<15;i++){
+      t.solved['arr'].push(0);
+      t.solved['dateTime'].push(new Date());
+    }
+    t.save(function(err,savedt){
+      if(err)
+        console.log(err);
+      else
+        console.log(savedt);
+    })
+    
+  })
+})
+})
 router.get("/questions", (req, res) => {
   Questions.find({}, function (err, foundQues) {
     if (err) {
@@ -93,33 +108,37 @@ router.get("/questions", (req, res) => {
   });
 });
 // c score change 
-router.post("/changeScore", (req, res) => {
-  Teams.findOne({ teamNo: req.body.teamNo }, function (err, foundTeam) {
-    if (foundTeam) {
-      Questions.findOne(
-        { question: req.body.question.question },
-        async function (err, foundQues) {
-          if (foundQues) {
-            foundTeam.solved['arr'][foundQues.questionNo - 1] = 1;
-            foundTeam.solved['dateTime'][foundQues.questionNo - 1] = new Date();
-            foundTeam.cScore += foundQues.score;
-            foundTeam.totalScore += foundQues.score;
-            foundTeam.markModified("solved");
+// router.post("/changeScore", (req, res) => {
+//   Teams.findOne({ teamNo: req.body.teamNo }, function (err, foundTeam) {
+//     if (foundTeam) {
+//       Questions.findOne(
+//         { question: req.body.question.question },
+//         async function (err, foundQues) {
+//           if (foundQues) {
+//             foundTeam.solved['arr'][foundQues.questionNo - 1] = 1;
+//             let today=new Date().getHours();
 
-            await foundTeam.save(function (err, savedTeam) {
-              if (err) console.log(err);
-              else {
-                res.json(savedTeam);
-              }
-            });
-          }
-        }
-      );
-    } else {
-      console.log(err);
-    }
-  });
-});
+//             foundTeam.solved['dateTime'][foundQues.questionNo - 1] = new Date();
+//             foundTeam.cScore += foundQues.score;
+            
+//             foundTeam.totalScore += foundQues.score;
+//             foundTeam.markModified("solved");
+//             if(today<19){
+//             await foundTeam.save(function (err, savedTeam) {
+//               if (err) console.log(err);
+//               else {
+//                 res.json(savedTeam);
+//               }
+//             });
+//           }
+//           }
+//         }
+//       );
+//     } else {
+//       console.log(err);
+//     }
+//   });
+// });
 //add questions
 router.post("/addQuestion", (req, res) => {
   Questions.findOne({ questionNo: req.body.questionNo }, function (
@@ -147,8 +166,6 @@ router.put("/teams/editScore", (req, res) => {
     if (foundTeam) {
       foundTeam.webScore += req.body.webScore;
      
-      var date=moment(req.body.date);
-      foundTeam.solved['webdatetime']=date; 
      
       foundTeam.totalScore += req.body.webScore;
       await foundTeam.save(function (err, savedTeam) {
@@ -199,7 +216,7 @@ router.post("/teams/register", (req, res) => {
           solved: {
             arr : solvedArr,
             dateTime : dateTimeArr,
-            webdatetime:dateTimeArr[0]
+            
           },
         };
         Teams.create(m, function (err, createdTeam) {

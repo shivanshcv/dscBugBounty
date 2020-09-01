@@ -20,12 +20,14 @@ export class BackendService {
     
     return m;
   }
- 
+ changepls():Observable<any>{
+   return this.http.get(this.url+"/changepls")
+ }
   register(obj:Object):Observable<any>{
     let m=this.http.post(this.url+"teams/register",obj);
     return m;
   }
-  editScore(webScore:Number,id:string,teamName:string,date:any):Observable<any>{
+  editScore(webScore:Number,id:string,teamName:string):Observable<any>{
     let m={webScore:webScore,id:id,teamName:teamName}
     return this.http.put(this.url+"teams/editScore",m);
   }

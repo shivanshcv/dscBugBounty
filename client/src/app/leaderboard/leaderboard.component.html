@@ -21,6 +21,7 @@
     <h2 style="text-align: center;">Leaderboard</h2>
     
     {{ time | date: 'hh:mm:ss a' }}
+    
     <table class="table table-borderless table-responsive-sm" style="margin-top: 50px;">
         <thead>
           <tr>
@@ -39,9 +40,9 @@
             
             <td>{{team['teamName']}}</td>
             <td>{{team['cScore']}}</td>
-            <td>{{(team['webScore']==0) ? 'To be Decided' : team['webScore']}}</td>
+            <td>{{team['webScore']}}</td>
          
-            <td>{{(team['webScore']==0) ? 'To be Decided' : team['totalScore']}}</td>
+            <td>{{team['totalScore']}}</td>
            
           </tr>
           

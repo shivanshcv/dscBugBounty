@@ -17,7 +17,7 @@
 
     
     <div class="jumbotron mt-5" *ngIf="error">
-        <h2>The Team Name and Number doesn't match anywhere in the database. Verify your input or contact the test administators</h2>
+        <h2>The Team Name and Number doesn't match anywhere in the database. Verify your input or contact the test administrators</h2>
     </div>
  
     <div *ngIf="questions">
@@ -43,6 +43,7 @@
                 <thead>
                   <tr>
                     <th scope="col">Question No.</th>
+                    <th scope="col">Difficulty</th>
                     <th scope="col">Question</th>
                     <th scope="col">Status</th>
                     
@@ -52,8 +53,10 @@
                 <tbody  *ngFor="let q of questions; let i = index">
                   <tr>
                     <th scope="row">{{i+1}}</th>
+                    <td>{{q.level}}</td>
                     <td>{{q.question}}</td>
-                    <td><button type="button" [class]="(team.solved['arr'][i] == 0) ? 'btn btn-primary' : 'btn btn-success'" [disabled]="team.solved['arr'][i] != 0" (click)="solve(i);goDown()">{{(team.solved['arr'][i] == 0) ? 'Enter Solution' : 'Solved'}}</button></td>
+                    
+                    <td><button type="button" [class]="(team.solved['arr'][i] == 0) ? 'btn btn-primary' : 'btn btn-success'" [disabled]="team.solved['arr'][i] != 0" (click)="solve(i);goDown()">{{(team.solved['arr'][i] == 0) ? 'Enter Key' : 'Solved'}}</button></td>
                     
                  
                     <td>{{team['totalScore']}}</td>
@@ -72,7 +75,7 @@
                     <form>
                   <div class="modal-content" style="background: black !important; border: 10px double yellow !important">
                     <div class="modal-header">
-                      <h5 class="modal-title">Enter Solution</h5>
+                      <h5 class="modal-title">Enter Key</h5>
                     </div>
                     <div class="modal-body">
                         <input type="text" class="form-control" id="solution" [(ngModel)]="toSolve.solution" name="solution">

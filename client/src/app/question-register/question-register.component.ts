@@ -25,6 +25,11 @@ export class QuestionRegisterComponent implements OnInit {
   ngOnInit(): void {
     this.questionAddForm.setValue({questionNo:null,question:null,score:null,answer:null,password:null});
   }
+  changepls(){
+    this.bs.changepls().subscribe(data=>{
+      
+    })
+  }
   async submit(){
     if(!this.questionAddForm.valid)
     {

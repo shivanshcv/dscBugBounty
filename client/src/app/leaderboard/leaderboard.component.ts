@@ -26,13 +26,9 @@ export class LeaderboardComponent implements OnInit {
     setInterval(() => {
       this.time = new Date();
    }, 1000);
-    setInterval(()=>{
-      this.backend.getTeams().subscribe(arr => {
-        this.teamArr = arr.sort(this.sortRank);
-        this.ref.detectChanges();
-      })
-    },7500);
+    
   }
+
 
   sortRank(a, b) {
     if (a['totalScore'] < b['totalScore']) {
@@ -43,30 +39,10 @@ export class LeaderboardComponent implements OnInit {
     }
     else {
       
-      let aLatestTimeC = a['solved']['dateTime'].sort().slice(-1).pop();
-
-      let bLatestTimeC= b['solved']['dateTime'].sort().slice(-1).pop();
-      let aLatestTimeWeb=a['solved']['webdatetime'];
-      let bLatestTimeWeb=b['solved']['webdatetime'];
-      let aLatestTime;
-      let bLatestTime;
-      if(aLatestTimeC>aLatestTimeWeb)
-      {
-        aLatestTime=aLatestTimeC;
-      }
-      else
-        aLatestTime=aLatestTimeWeb;
-
-      if(bLatestTimeC>bLatestTimeWeb)
-        bLatestTime=bLatestTimeC;
-      else
-        bLatestTime=bLatestTimeWeb;
-
-      
-      if(aLatestTime>bLatestTime)
-          return 1;
-      else
-        return -1;    
+      let aLatestTime = a['solved']['dateTime'].sort((a,b) => b - a).pop();
+      let bLatestTime = b['solved']['dateTime'].sort((a,b) => b - a).pop();
+     
+      return (bLatestTime-aLatestTime);
     }
   }
 

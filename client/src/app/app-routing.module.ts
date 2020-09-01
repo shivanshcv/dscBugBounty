@@ -16,7 +16,7 @@ const routes: Routes = [
   {path:'add-question',component:QuestionRegisterComponent,canActivate:[LoggedInService]},
   {path:'edit-score',component:AdminComponent,canActivate:[LoggedInService]},
   
-  {path:'crack-the-password',component:ZippassComponent},
+
   {path:'leaderboard',component:LeaderboardComponent},
   
   {path:'admin-login',component:LoginComponent,canActivate:[GuardLoginService]},
